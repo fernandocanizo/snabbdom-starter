@@ -7,7 +7,7 @@ const DEC     = Symbol('dec');
 
 
 // model : Number
-function view(count, handler) { 
+function view(count, handler) {
   return h('div', [
     h('button', {
       on   : { click: handler.bind(null, { type: INC }) }
@@ -16,7 +16,7 @@ function view(count, handler) {
       on   : { click: handler.bind(null, { type: DEC }) }
     }, '-'),
     h('div', `Count : ${count}`),
-  ]); 
+  ]);
 }
 
 function init() {

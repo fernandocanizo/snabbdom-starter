@@ -8,7 +8,7 @@ const UPDATE_SECOND = Symbol('update second');
 const RESET         = Symbol('reset');
 
 // model : {first: counter.model, second: counter.model }
-function view(model, handler) { 
+function view(model, handler) {
   return h('div', [
     h('button', {
       on   : { click: handler.bind(null, {type: RESET}) }
@@ -17,8 +17,8 @@ function view(model, handler) {
     counter.view(model.first, a => handler({ type: UPDATE_FIRST, data: a})),
     h('hr'),
     counter.view(model.second, a => handler({ type: UPDATE_SECOND, data: a})),
-    
-  ]); 
+
+  ]);
 }
 
 function init() {
@@ -27,17 +27,17 @@ function init() {
 
 function update(model, action) {
   return  action.type === RESET     ?
-            { 
+            {
               first : counter.init(),
               second: counter.init()
             }
-            
+
         : action.type === UPDATE_FIRST   ?
             {...model, first : counter.update(model.first, action.data) }
-            
+
         : action.type === UPDATE_SECOND  ?
             {...model, second : counter.update(model.second, action.data) }
-            
+
         : model;
 }
 
