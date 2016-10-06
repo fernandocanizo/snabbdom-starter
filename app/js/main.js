@@ -3,6 +3,7 @@
 import snabbdom from 'snabbdom';
 import h from 'snabbdom/h';
 
+
 const patch = snabbdom.init([
   require('snabbdom/modules/class'),          // makes it easy to toggle classes
   require('snabbdom/modules/props'),          // for setting properties on DOM elements
@@ -10,18 +11,24 @@ const patch = snabbdom.init([
   require('snabbdom/modules/eventlisteners'), // attaches event listeners
 ]);
 
-
-function view(currentDate) { 
-  return h('div', 'Current date ' + currentDate); 
+const clockView = (currentDate) => {
+  return h('div', 'Current date ' + currentDate);
 }
 
-var oldVnode = document.getElementById('placeholder');
-function updateDOM(newVnode) {
-  oldVnode = patch(oldVnode, newVnode);
+const patchClock = (oldClock, newClock) => {
+  return patch(oldClock, newClock);
 }
 
-setInterval( () => {
-  const newVnode = view(new Date());
-  updateDOM(newVnode);  
-}, 1000);
+const updateClock = () => {
+  let clockNode;
+  if ('undefined' === typeof clockNode) {
+    // get clock node the first time
+    clockNode = document.getElementById('clock');
+  }
 
+  return function () {
+    clockNode = patchClock(clockNode, clockView(new Date()));
+  };
+};
+
+setInterval(updateClock(), 1000);
