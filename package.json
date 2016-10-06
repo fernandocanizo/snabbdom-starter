@@ -19,6 +19,6 @@
   },
   "scripts": {
     "build": "browserify app/js/main.js -t babelify --outfile app/build.js",
-    "watch": "watchify app/js/main.js -t babelify --outfile app/build.js"
+    "watch": "watchify app/js/main.js -t babelify --outfile app/build.js -v"
   }
 }
